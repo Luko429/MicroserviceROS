@@ -1,6 +1,7 @@
 import re
 import json
 
+
 def find_terms(def_terms, targ_term):
     definition = def_terms[0]
     set_terms = def_terms[1]
@@ -11,7 +12,6 @@ def find_terms(def_terms, targ_term):
             array_terms += [term]
 
     return array_terms
-
 
 
 def find_term_definition(json_object):
@@ -60,6 +60,7 @@ terms_and_definitions = {
     "node" = "A node is a basic unit of computation in the ROS system, representing a single running process."
     "ros" = "ROS is short for Robot Operating Systems. It is not an actual operating system, 
     but a set of tools that provide functionality of a robot."
+    "request-response pattern" = "Definition for request-response pattern"
 }
 '''
 
