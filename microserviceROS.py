@@ -1,5 +1,32 @@
 import re
 import json
+import time
+
+ROSPipe = 'ROSPipe.txt'
+
+
+def writeToFile(file, message):
+    while True:
+        try:
+            with open(file, 'w') as openPipe:
+                openPipe.write(message)
+            break
+        except:
+            time.sleep(1)
+
+
+def readFromFile(file):
+    while True:
+        try:
+            with open(file, 'r') as openPipe:
+                value = openPipe.read()
+            if 'target_term' in value:
+                break
+            else:
+                time.sleep(1)
+        except:
+            time.sleep(1)
+    return value
 
 
 def find_terms(def_terms, targ_term):
@@ -52,22 +79,15 @@ def parse_text(text_to_parse):
     return json_object
 
 
-text = '''
-target_term = ["service"]
+while True:
+    message = readFromFile(ROSPipe)
 
-terms_and_definitions = {
-    "service" = "A service is another form of communication between nodes in ROS, using a request-response pattern."
-    "node" = "A node is a basic unit of computation in the ROS system, representing a single running process."
-    "ros" = "ROS is short for Robot Operating Systems. It is not an actual operating system, 
-    but a set of tools that provide functionality of a robot."
-    "request-response pattern" = "Definition for request-response pattern"
-}
-'''
+    json_obj = parse_text(message)
+    targ_def_and_terms = find_term_definition(json_obj)
+    array_of_terms_found = find_terms(targ_def_and_terms, json_obj['target_term'])
 
-json_obj = parse_text(text)
-targ_def_and_terms = find_term_definition(json_obj)
-array_of_terms_found = find_terms(targ_def_and_terms, json_obj['target_term'])
-
-print(array_of_terms_found)
+    message = 'related_terms = ' + str(array_of_terms_found)
+    writeToFile(ROSPipe, message)
+    print(array_of_terms_found)
 
 
