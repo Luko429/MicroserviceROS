@@ -38,3 +38,5 @@ terms_and_definitions = {
 `
 related_terms = ['request-response pattern', 'node', 'ros']
 `
+# Here is the UML sequence diagram for the ROS microservice system:
+![UML](https://user-images.githubusercontent.com/98900778/236966550-bcb74cb5-5d49-4c2e-ba7f-4bef8220f847.JPG)
